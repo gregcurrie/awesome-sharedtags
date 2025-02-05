@@ -135,7 +135,8 @@ end
 function sharedtags.movetag(tag, screen)
     screen = screen or awful.screen.focused()
     local oldscreen = tag.screen
-
+    local oldtag = screen.selected_tag
+    
     -- If the specified tag is allocated to another screen, we need to move it,
     -- or if the tag no longer belongs to a screen.
     if oldscreen ~= screen or not oldscreen then
@@ -146,6 +147,7 @@ function sharedtags.movetag(tag, screen)
             tag.screen = screen
 
             if oldsel == tag then
+                oldtag.screen = oldscreen
                 -- The tag has been moved away. In most cases the tag history
                 -- function will find the best match, but if we really want we can
                 -- try to find a fallback tag as well.
